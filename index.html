@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Рома, с днюшкой!</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    padding: 20px;
+  }
+  #button1,  #button3, #button4 {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  #button2 {
+    display:none; position:fixed; bottom:20px; left:20px; 
+    width: 50px;
+    height: 50px;
+  }
+  #button2 img {
+    
+    width: 50px;
+    height: 50px;
+  }
+  #button1 img {
+    width: 50px;
+    height: 50px;
+    display: block;
+  }
+
+
+  /* Убираем абсолютное позиционирование для новых элементов, чтобы они шли друг за другом */
+  #label1, #label2, #label3, #label4, #label5 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  #label2, #label3, #label4, #label5 {
+    display: none;
+  }
+  #label4 {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  #label5 {
+    color: green;
+    font-size: 20px;
+  }
+ #button3, #button4 {
+    display: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+    padding: 6px 12px;
+    background-color: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #button4 img {
+    width: 200px;
+    height: auto;
+    display: block;
+  }
+  #finalImage {
+    display: none;
+    margin-top: 20px;
+    max-width: 100%;
+    height: 500px;
+    width: 500px;
+  }
+  #klad {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<button id="button1" type="button">
+  <img src="паук.png" alt="Паук">
+</button>
+<button id="button2"><img src="сачок.png" alt="сачок"></button>
+<button id="button3" type="button">забрать подарок</button>
+<button id="button4" type="button"><img src="альтушка.jpg" alt="альтушка"></button>
+
+<div id="label1">Поймай паука :)</div>
+<div id="label2">Дурачок, сачок же есть</div>
+<div id="label3">Просто посмотри вниз</div>
+<div id="label4">Паук пойман :( </div>
+<div id="label5">Погладь зайку</div>
+
+<img id="finalImage" src="17.jpg" alt="QRкод" />
+<label id="klad">Клад ищи по адресу Брянск, Котовского 8</label>
+
+<script>
+  let k = 0;
+  const button1 = document.getElementById('button1');
+  const button2 = document.getElementById('button2');
+  const button3 = document.getElementById('button3');
+  const button4 = document.getElementById('button4');
+  const label1 = document.getElementById('label1');
+  const label2 = document.getElementById('label2');
+  const label3 = document.getElementById('label3');
+  const label4 = document.getElementById('label4');
+  const label5 = document.getElementById('label5');
+  const finalImage = document.getElementById('finalImage');
+  const klad = document.getElementById('klad');
+
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  button1.addEventListener('mousemove', () => {
+    const maxLeft = window.innerWidth - button1.offsetWidth - 20;
+    const maxTop = window.innerHeight - button1.offsetHeight - 20;
+    let left = 150 + Math.floor(Math.random() * 500);
+    let top = 150 + Math.floor(Math.random() * 500);
+    if (left > maxLeft) left = maxLeft;
+    if (top > maxTop) top = maxTop;
+
+    button1.style.position = 'absolute';
+    button1.style.left = left + 'px';
+    button1.style.top = top + 'px';
+
+    k++;
+
+    if (k >= 4) {
+      button2.style.display = 'inline-block';
+    }
+
+    if (k > 4) label2.style.display = 'block';
+    if (k > 6) label3.style.display = 'block';
+
+    const r = 100 + randomInt(0, 155);
+    const g = 100 + randomInt(0, 155);
+    const b = 100 + randomInt(0, 155);
+    document.body.style.backgroundColor = `rgb(${r},${g},${b})`;
+  });
+
+  button2.addEventListener('click', () => {
+    label4.style.display = 'block'
+    ;
+    button1.style.display = 'none';
+    button2.style.display = 'none';
+    label1.style.display = 'none';
+    label2.style.display = 'none';
+    label3.style.display = 'none';
+
+    button3.style.display = 'inline-block';
+  });
+
+  button3.addEventListener('click', () => {
+    label5.style.display = 'block';
+    button4.style.display = 'inline-block';
+    button3.style.display = 'none';
+    label4.style.display = 'none';
+  });
+
+  button4.addEventListener('click', () => {
+    // Скрываем все элементы
+    label1.style.display = 'none';
+    label2.style.display = 'none';
+    label3.style.display = 'none';
+    label4.style.display = 'none';
+    label5.style.display = 'none';
+    button1.style.display = 'none';
+    button2.style.display = 'none';
+    button3.style.display = 'none';
+    button4.style.display = 'none';
+
+    // Показываем одну фотографию
+    finalImage.style.display = 'block';
+    klad.style.display = 'block';
+  });
+
+  window.onload = () => {
+    k = 0;
+    label2.style.display = 'none';
+    label3.style.display = 'none';
+    label4.style.display = 'none';
+    label5.style.display = 'none';
+    button2.style.display = 'none';
+    button3.style.display = 'none';
+    button4.style.display = 'none';
+    finalImage.style.display = 'none';
+    button1.style.display = 'inline-block';
+    button1.style.position = 'absolute';
+    button1.style.top = '150px';
+    button1.style.left = '150px';
+  };
+</script>
+
+</body>
+</html>
